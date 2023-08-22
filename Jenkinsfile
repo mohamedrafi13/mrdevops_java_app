@@ -8,6 +8,6 @@ pipeline {
                     }
                 }
             }
-        git
+        
     }
 }
