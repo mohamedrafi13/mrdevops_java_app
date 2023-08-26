@@ -6,8 +6,8 @@ pipeline {
             stage ('Git CheckOut') {
                 steps {
                 gitCheckout {
-                    branch: 'main', 
-                    url: 'https://github.com/mohamedrafi13/mrdevops_java_app.git'
+                    branch: "main", 
+                    url: "https://github.com/mohamedrafi13/mrdevops_java_app.git"
                     }
                 }
             }
