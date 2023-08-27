@@ -1,8 +1,14 @@
 @Library('my-shared-lib') _
 
 pipeline {
-    agent any   
+    agent any 
+
+    parameters {
+        choice{name: 'action', choices: 'Create\nDelete', description: 'Choose create/Destroy'}
+    }  
         stages {
+
+            when { { expression param.action == 'create' }}
             stage('Git CheckOut') {
                 steps{
                     script {
@@ -16,6 +22,7 @@ pipeline {
                 }
             }           
             stage('Unit Test Maven') {
+                when { { expression param.action == 'create' }}
                 steps{
                     script {
                         mvnTest()
@@ -23,6 +30,7 @@ pipeline {
                 }
             }   
              stage('Integration Test Maven') {
+                when { { expression param.action == 'create' }}
                 steps{
                     script {
                         mvnIntegrationTest()
