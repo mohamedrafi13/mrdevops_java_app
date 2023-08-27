@@ -12,15 +12,15 @@ pipeline {
                 when { expression {  params.action == 'create' } }
                 steps{
                     script {
-                        gitCheckout(
-                            branch: 'main', 
-                            url: 'https://github.com/mohamedrafi13/mrdevops_java_app.git'
-                        )
-                    }
-                
-                
+                    gitCheckout(
+                    branch: 'main', 
+                    url: 'https://github.com/mohamedrafi13/mrdevops_java_app.git'
+                    )
                 }
-            }           
+            }
+                    
+        }
+                      
             stage('Unit Test Maven') {
                 when { expression { params.action == 'create' } }
                 steps{
