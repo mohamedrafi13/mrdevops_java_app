@@ -8,8 +8,8 @@ pipeline {
     }  
         stages {
 
-            when { { expression param.action == 'create' }}
             stage('Git CheckOut') {
+                when { { expression param.action == 'create' }}
                 steps{
                     script {
                         gitCheckout(
@@ -36,6 +36,14 @@ pipeline {
                         mvnIntegrationTest()
                     }
                 }
-            }       
+            }   
+            stage('Static Code Analysis: Sonarqube') {
+                when { { expression param.action == 'create' }}
+                steps{
+                    script {
+                        staticCodeAnalysis()
+                    }
+                }
+            }           
        }
     }
