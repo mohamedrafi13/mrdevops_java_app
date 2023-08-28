@@ -43,14 +43,15 @@ pipeline {
                     }
                 }
             }  
-        //      stage('Quality Gate Status Check: Sonarqube') {
-        //        when { expression { params.action == 'create' } }
-        //        steps{
-        //            script {
-        //                def SonarqubeCredentialsId = 'sonarqube'
-        //                qualityGateCheck(SonarqubeCredentialsId)
-        //           }
-        //        }
-        //    }         
+            stage('Quality Gate Analysis: Sonarqube') {
+                when { expression { params.action == 'create' } }
+                steps{
+                    script {
+                        def SonarqubeCredentialsId = 'sonarqube'
+                        qualityGateCheck(SonarqubeCredentialsId)
+                    }
+                }
+            }    
        }
     }
+
