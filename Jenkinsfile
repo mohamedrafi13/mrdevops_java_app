@@ -7,7 +7,7 @@ pipeline {
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(name: 'ImageName', description: "name of the docker build", defaultvalue: 'javapp')
         string(name: 'ImageTag', description: "tag of the docker build", defaultvalue: 'v1')
-        string(name:  'dockerhub', description "Name of the Application", defaultvalue: 'mohamedrafi')
+        string(name:  'dockerhub', description: "Name of the Application", defaultvalue: 'mohamedrafi')
     }  
         stages {
 
