@@ -70,7 +70,15 @@ pipeline {
                         dockerBuild("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
                     }
                 }
-            }     
+            }  
+            stage('Docker Image Scan: Trivy') {
+                when { expression { params.action == 'create' } }
+                steps{
+                    script {
+                        dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
+                    }
+                }
+            }      
        }
     }
 
