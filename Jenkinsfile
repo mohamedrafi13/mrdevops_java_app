@@ -21,7 +21,7 @@ pipeline {
                 }
             }
                                 
-    /*       stage('Unit Test Maven') {
+           stage('Unit Test Maven') {
                 when { expression { params.action == 'create' } }
                 steps{
                     script {
@@ -62,7 +62,7 @@ pipeline {
                         mvnBuild()
                     }
                 }
-            }   */ 
+            }    
             stage('Docker Build Image') {
                 when { expression { params.action == 'create' } }
                 steps{
@@ -79,14 +79,14 @@ pipeline {
                     }
                 }
             }   
-    /*       stage('Docker Image Push: dockerHub') {
+           stage('Docker Image Push: dockerHub') {
                 when { expression { params.action == 'create' } }
                 steps{
                     script {
                         dockerPushImage("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
                     }
                 }
-            } */        
+            }       
        }
     }
 
