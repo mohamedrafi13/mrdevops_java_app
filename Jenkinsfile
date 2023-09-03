@@ -83,7 +83,7 @@ pipeline {
                 when { expression { params.action == 'create' } }
                 steps{
                     script {
-                        dockerImagePush("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
+                        dockerPushImage("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
                     }
                 }
             }         
