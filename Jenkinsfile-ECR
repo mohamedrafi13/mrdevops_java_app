@@ -6,7 +6,7 @@ pipeline {
     parameters {
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(name: 'awsAccountID', description: "AWS Account ID", defaultValue: '133078494918')
-        string(name: 'region', description: "tag of the docker build", defaultValue: 'v1')
+        string(name: 'region', description: "Region of ECR", defaultValue: 'ap-south-1')
         string(name:  'ecrRepoName', description: "Name of the ECR", defaultValue: 'mohamedrafi')
     }  
         stages {
