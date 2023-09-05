@@ -63,14 +63,14 @@ pipeline {
                     }
                 }
             }    
-            stage('Docker Image CleanUp: dockerHub') {
+        /*    stage('Docker Image CleanUp: dockerHub') {
                 when { expression { params.action == 'create' } }
                 steps{
                     script {
                         dockerImageCleanUp("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
                     }
                 }
-            }       
+            }*/       
             stage('Docker Build Image') {
                 when { expression { params.action == 'create' } }
                 steps{
