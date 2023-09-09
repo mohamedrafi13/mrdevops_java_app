@@ -107,7 +107,7 @@ pipeline {
                         dockerImageCleanUp("${params.awsAccountID}","${params.region}","${params.ecrRepoName}" )
                     }
                 }
-*/            }       
+            }  */     
             stage('Create EKS Cluster : Terraform')    {
                 steps {
                     script {
