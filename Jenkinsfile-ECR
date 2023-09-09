@@ -8,6 +8,7 @@ pipeline {
         string(name: 'awsAccountID', description: "AWS Account ID", defaultValue: '133078494918')
         string(name: 'region', description: "Region of ECR", defaultValue: 'ap-south-1')
         string(name: 'ecrRepoName', description: "Name of the ECR", defaultValue: 'mohamedrafi')
+        string(name: 'cluster', description: "Name of the EKS Cluster", defaultValue: 'demo-cluster1')
     }  
 
     environment {
@@ -120,6 +121,18 @@ pipeline {
                     }
                 }
             }
-        }     
+        }    
+        stage('Connect to EKS') {
+            steps{
+                script{
+                    sh """
+                        aws configure set aws_access_key_id $ACCESS_KEY
+                        aws configure set aws_secret_access_key $ACCESS_KEY
+                        aws configure set region ${params.region}
+                        aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}
+                    """
+                }
+            }
+        }
     }
 }
