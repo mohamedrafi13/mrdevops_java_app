@@ -9,6 +9,11 @@ pipeline {
         string(name: 'region', description: "Region of ECR", defaultValue: 'ap-south-1')
         string(name: 'ecrRepoName', description: "Name of the ECR", defaultValue: 'mohamedrafi')
     }  
+
+    environment {
+        ACCESS_KEY = credentials('aws-access-key-id')
+        SECRET_KEY = credentials('aws-secret-access-key')
+    }
         stages {
 
             stage('Git CheckOut') {
@@ -21,7 +26,7 @@ pipeline {
                 }
             }
                                 
-           stage('Unit Test Maven') {
+/*           stage('Unit Test Maven') {
                 when { expression { params.action == 'create' } }
                 steps{
                     script {
@@ -70,7 +75,7 @@ pipeline {
                         dockerImageCleanUp("${params.ImageName}","${params.ImageTag}","${params.dockerhub}" )
                     }
                 }
-            }*/       
+            }     
             stage('Docker Build Image') {
                 when { expression { params.action == 'create' } }
                 steps{
@@ -102,6 +107,19 @@ pipeline {
                         dockerImageCleanUp("${params.awsAccountID}","${params.region}","${params.ecrRepoName}" )
                     }
                 }
-            }           
-        }
+*/            }       
+            stage('Create EKS Cluster : Terraform')    {
+                steps {
+                    script {
+                        dir('eks_module') {
+                        sh """
+                        terraform init
+                        terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.region}' --var-file=./config/terraform.tfvars
+                        terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.region}' --var-file=./config/terraform.tfvars --auto-approve
+                        """
+                    }
+                }
+            }
+        }     
     }
+}
